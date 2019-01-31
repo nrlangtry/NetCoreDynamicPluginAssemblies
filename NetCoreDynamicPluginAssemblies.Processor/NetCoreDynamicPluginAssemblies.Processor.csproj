@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreDynamicPluginAssemblies.Common\NetCoreDynamicPluginAssemblies.Common.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(SolutionDir)Plugins&quot; /Y /R" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if not exist &quot;$(SolutionDir)\Plugins&quot; mkdir &quot;$(SolutionDir)Plugins&quot;" />
+  </Target>
+
+</Project>
